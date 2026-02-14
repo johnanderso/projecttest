@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine's Experience</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #fff0f5;
+        color: #333;
+        text-align: center;
+        overflow-x: hidden;
+        padding: 20px;
+    }
+    .hidden { display: none; }
+    button {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        border-radius: 8px;
+        background-color: #ff6b81;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    button:hover { transform: scale(1.1); }
+    input { padding: 8px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    .gif-container img { max-width: 300px; margin: 20px 0; border-radius: 12px; }
+    .poem, .letter {
+        margin: 20px auto;
+        padding: 15px;
+        max-width: 500px;
+        background-color: #fff3f3;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 1s ease;
+    }
+    .show { opacity: 1; transform: translateY(0); }
+    .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-image: url('https://i.postimg.cc/43m5Qk4t/heart.png'); /* small heart icon */
+        background-size: cover;
+        pointer-events: none;
+        animation: floatUp 4s linear forwards;
+    }
+    @keyframes floatUp {
+        0% { transform: translateY(0) scale(0.5); opacity:1; }
+        100% { transform: translateY(-200px) scale(1) opacity:0; }
+    }
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" autoplay loop>
+    <source src="YOUR_PERFECT_SONG_LINK_HERE.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Stage 1: Neutral questions -->
+<div id="stage1">
+    <h2>Quick Questions</h2>
+    <p>Just a few simple questions before we start 🙂</p>
+    <form id="questionsForm">
+        <input type="text" placeholder="What's your favorite color?" required><br>
+        <input type="text" placeholder="What's your favorite hobby?" required><br>
+        <input type="text" placeholder="What's your favorite snack?" required><br>
+        <input type="text" placeholder="What's one song you love?" required><br>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<!-- Stage 2: Valentine's welcome with GIF -->
+<div id="stage2" class="hidden">
+    <h2>Happy Valentine’s Day, Christabel! ❤️</h2>
+    <div class="gif-container">
+        <img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" alt="Cute Valentine GIF">
+    </div>
+    <button id="nextToPoem">Next</button>
+</div>
+
+<!-- Stage 3: Cute Valentine's Poem -->
+<div id="stage3" class="hidden">
+    <h2>Just for You 🥰</h2>
+    <div class="poem">
+        Roses are soft, violets are bright,<br>
+        Thinking of you makes my heart take flight.<br>
+        Your smile, your laugh, your gentle ways,<br>
+        Brighten my nights and warm my days.<br>
+        Every moment with you feels like a song,<br>
+        A melody where my heart belongs.<br>
+        Christabel, this little note is true,<br>
+        Sending all my love and hugs to you.
+    </div>
+    <button id="nextToLetter">Next</button>
+</div>
+
+<!-- Stage 4: Heartfelt Letter -->
+<div id="stage4" class="hidden">
+    <h2>A Letter from Me 🤍</h2>
+    <div class="letter">
+        Hey my love,<br><br>
+        Today, I just want to pause and tell you how much I truly appreciate you. Every laugh, every shared glance, every little moment we’ve spent together has meant more to me than I can fully express. Being with you has been a gift I will never take for granted.<br><br>
+        I know life isn’t always perfect, and neither am I, but my hope is to keep growing, learning, and making things better — for us, for our moments, for the memories yet to come. You being in my life has made it brighter, warmer, and more meaningful than I could have imagined.<br><br>
+        Thank you for being you — soft, strong, kind, and unforgettable. I cherish every part of our bond and I’m excited for the things we will continue to share together.<br><br>
+        Happy Valentine’s Day, Christabel. Always, <br>
+        <b>John</b>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('questionsForm');
+    const stage1 = document.getElementById('stage1');
+    const stage2 = document.getElementById('stage2');
+    const stage3 = document.getElementById('stage3');
+    const stage4 = document.getElementById('stage4');
+    const poem = document.querySelector('.poem');
+    const letter = document.querySelector('.letter');
+
+    // Generate floating hearts randomly
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
+    }
+    setInterval(createHeart, 800);
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        stage1.classList.add('hidden');
+        stage2.classList.remove('hidden');
+    });
+
+    document.getElementById('nextToPoem').addEventListener('click', function(){
+        stage2.classList.add('hidden');
+        stage3.classList.remove('hidden');
+        setTimeout(()=> poem.classList.add('show'), 100);
+    });
+
+    document.getElementById('nextToLetter').addEventListener('click', function(){
+        stage3.classList.add('hidden');
+        stage4.classList.remove('hidden');
+        setTimeout(()=> letter.classList.add('show'), 100);
+    });
+</script>
+
+</body>
+  </html>
